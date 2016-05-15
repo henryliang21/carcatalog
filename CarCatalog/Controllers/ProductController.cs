@@ -13,6 +13,7 @@ namespace CarCatalog.Controllers
         private ProductsRepository ProductsRepo;
 
         [System.Web.Http.HttpGet]
+        [System.Web.Http.ActionName("DefaultAction")]
         public IHttpActionResult Index()
         {
             ProductsRepo = new ProductsRepository();
@@ -23,20 +24,22 @@ namespace CarCatalog.Controllers
         }
 
         [System.Web.Http.HttpGet]
-        public IHttpActionResult Details(int id)
+        [System.Web.Http.ActionName("DefaultAction")]
+        public IHttpActionResult Details(int param)
         {
             ProductsRepo = new ProductsRepository();
-            var product = ProductsRepo.Get<Product>(id);
+            var product = ProductsRepo.Get<Product>(param);
             return Json(product);
         }
 
         [System.Web.Http.HttpGet]
-        public IHttpActionResult Search(string keyword)
+        [System.Web.Http.ActionName("Search")]
+        public IHttpActionResult Search(string param)
         {
             ProductsRepo = new ProductsRepository();
             var productList = from p in ProductsRepo.List<Product>()
                               where p.Category.CategoryName == "Cars" 
-                                && (p.ProductName.Contains(keyword) || p.Description.Contains(keyword))
+                                && (p.ProductName.Contains(param) || p.Description.Contains(param))
                               select new { p.ProductId, p.ProductName, p.UnitPrice, p.ImagePath };
             return Json(productList);
         }
