@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=152368
+  -->
+
+<configuration>
+  <connectionStrings>
+    <add name="cwb" connectionString="data source=.;initial catalog=Cwb;Integrated Security=SSPI" providerName="System.Data.SqlClient"/>
+  </connectionStrings>
+
+  <appSettings>
+    <add key="NHibernateSingleDBTestMode" value="false"/>
+    <add key="NHibernateConnStringName" value="cwb"/>
+    <add key="NHibernateMappingAssembly" value="Cwb.DAL.dll"/>
+  </appSettings>
+
+  <system.web>
+    <httpModules>
+      <add name="NHibernator" type="NHibernatorFramework.OpenSessionInViewModule, RepositoryFramework"/>
+    </httpModules>
+  </system.web>
+</configuration>

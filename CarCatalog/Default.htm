@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+
+<html class="js no-flexbox flexbox-legacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"
+lang="en">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <meta charset="utf-8">
+
+    <title>Cars - Wingtip Toys</title>
+    <link href="Assets/Site.css" rel="stylesheet">
+    <link href="Assets/css/ui.jqgrid.css" rel="stylesheet" />
+    <script type="text/javascript" src="Assets/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="Assets/js/jquery.jqGrid.min.js"></script>
+</head>
+
+<body>
+
+    <form action="Cars" id="ctl01" method="post" name="ctl01">
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">
+                        <a href="/" id="A2">
+                            <img id="Logo"
+                                src="Assets/logo.jpg" style="border-style: None;"></a>
+                    </p>
+                </div>                
+            </div>
+        </header>
+
+        <div id="body">
+            <section class="featured">
+                <div class="content-wrapper">
+                    <hgroup class="title">
+                        <h1>Products</h1>
+                    </hgroup>
+
+                    <section class="featured">
+                        <div style="margin-left: 2em">
+                            <table>
+                                <tr>
+                                    <td style="width: 30%;vertical-align:top;">
+                                        <hgroup class="title">
+                                            <h1>Wingtip Toys</h1>
+                                            <h2>Wingtip Toys can help you find the perfect gift</h2>
+                                        </hgroup>
+                                        <p>
+                                            We're all about transportation toys. You can order 
+                                    any of our toys today. Each toy listing has detailed 
+                                    information to help you choose the right toy.
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <table id="jqGrid"></table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </section>
+                </div>
+            </section>
+
+            <section class="content-wrapper main-content clear-fix"></section>
+        </div>
+
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>OrderDynamics Coding Exercise</p>
+                </div>
+            </div>
+        </footer>
+    </form>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#jqGrid").jqGrid({
+                url: 'http://localhost:52625/api/product',
+                mtype: "GET",
+                datatype: "json",
+                colModel: [
+                    { label: 'ProductId', name: 'ProductId', key: true, width: 75, hidden: true },
+                    { label: 'Icon', name: 'ImagePath', width: 150, formatter: PicFormatter },
+                    { label: 'Name', name: 'ProductName', width: 150 },
+                    { label: 'Price', name: 'UnitPrice', width: 150 }
+                ],
+                viewrecords: false,
+                width: 780,
+                height: 600,
+                rowNum: 20
+            });
+        });
+
+        function PicFormatter(cellvalue, options, rowObject) {
+            var html = "<img src='/Assets/" + cellvalue + "' alt='" + cellvalue + "' style='height:100px'/>";
+            return html;
+        }
+    </script>
+</body>
+</html>
