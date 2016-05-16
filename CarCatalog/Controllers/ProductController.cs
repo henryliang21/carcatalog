@@ -21,13 +21,17 @@ namespace CarCatalog.Controllers
             if (searchQuery.Any())
             {
                 var param = searchQuery.First().Value; //TODO: Now only support 1 keyword, can be extended to support multiple keyword, seperated by comma.
-                ProductsRepo = new ProductsRepository();
-                var productList = from p in ProductsRepo.List<Product>()
-                                  where p.Category.CategoryName == "Cars"
-                                    && (p.ProductName.Contains(param) || p.Description.Contains(param))
-                                  select new { p.ProductId, p.ProductName, p.UnitPrice, p.ImagePath };
-                return Json(productList);
-
+                if (param.Length > 2) // Search query 2 char length validation, server side
+                {
+                    ProductsRepo = new ProductsRepository();
+                    var productList = from p in ProductsRepo.List<Product>()
+                                      where p.Category.CategoryName == "Cars"
+                                        && (p.ProductName.Contains(param) || p.Description.Contains(param))
+                                      select new { p.ProductId, p.ProductName, p.UnitPrice, p.ImagePath };
+                    return Json(productList);
+                }
+                else
+                    return BadRequest("Search query has to contains 2 or more chars.");
             }
             else
             {
