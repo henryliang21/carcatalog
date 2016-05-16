@@ -84,7 +84,12 @@ lang="en">
 
             $("#searchButton").click(function () {
                 var searchParam = $("#searchText").val();
-                LoadGridData(table, '/api/product?Search=' + searchParam, false);                
+                // If search query is 2+ char long
+                if (searchParam.length >= 2)
+                    LoadGridData(table, '/api/product?Search=' + searchParam, false);
+                // If search query is not empty but less than 2 chars
+                else if (searchParam.length > 0)
+                    alert("search query has to contain 2 or more characters!");
             });
         });
 
