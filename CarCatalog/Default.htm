@@ -84,11 +84,10 @@ lang="en">
 
             $("#searchButton").click(function () {
                 var searchParam = $("#searchText").val();
-                // If search query is 2+ char long
+                // If search query is 2+ char long, client side validation
                 if (searchParam.length >= 2)
                     LoadGridData(table, '/api/product?Search=' + searchParam, false);
-                // If search query is not empty but less than 2 chars
-                else if (searchParam.length > 0)
+                else
                     alert("search query has to contain 2 or more characters!");
             });
         });
